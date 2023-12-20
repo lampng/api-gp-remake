@@ -13,7 +13,11 @@ var router = express.Router();
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Thêm áo cưới (POST)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/create/`,
+        'Thêm (POST)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/create/`,
+        'Danh sách (GET)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/list/`,
+        'Chi tiết (GET)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/detail/:id`,
+        'Sửa (PUT)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/update/:id`,
+        'Xoá (DELETE)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/delete/:id`,
     });
 });
 

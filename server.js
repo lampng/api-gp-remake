@@ -43,8 +43,7 @@ app.get("/", (req, res) => {
         "User(Người dùng):": `https://api-gp-remake-production.up.railway.app/user/`,
         "Client(Khách hàng):": `https://api-gp-remake-production.up.railway.app/client/`,
         "Service(Dịch vụ):": `https://api-gp-remake-production.up.railway.app/service/`,
-        "Cart(Đơn hàng):": `https://api-gp-remake-production.up.railway.app/Cart/`,
-        "Order(Công việc):": `https://api-gp-remake-production.up.railway.app/order/`,
+        "Wedding Outfit(Áo cưới):": `https://api-gp-remake-production.up.railway.app/WeddingOutfit/`,
         "Statistic(Thống kê):": `https://api-gp-remake-production.up.railway.app/statistic/`,
     })
 })
