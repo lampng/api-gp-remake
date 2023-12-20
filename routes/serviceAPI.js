@@ -3,7 +3,6 @@ require('colors');
 const userModels = require('../models/userModel');
 const clientModels = require('../models/clientModel');
 const ServiceModels = require('../models/ServiceModel');
-const OrderModels = require('../models/orderModel.js');
 require('dotenv').config();
 //Tải lên ảnh
 const cloudinary = require('../middleware/cloudinary.js');
@@ -14,11 +13,11 @@ var router = express.Router();
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo dịch vụ(POST):': `https://api-graduation-project-production.up.railway.app/service/create/`,
-        'Gọi danh sách dịch vụ(GET):': `https://api-graduation-project-production.up.railway.app/service/list/`,
-        'Gọi chi tiết dịch vụ(GET):': `https://api-graduation-project-production.up.railway.app/service/detail/:id`,
-        'Cập nhập dịch vụ(PUT):': `https://api-graduation-project-production.up.railway.app/service/update/:id`,
-        'Xoá dịch vụ(DELETE):': `https://api-graduation-project-production.up.railway.app/service/delete/:id`,
+        'Tạo dịch vụ(POST):': `https://api-gp-remake-production.up.railway.app/service/create/`,
+        'Gọi danh sách dịch vụ(GET):': `https://api-gp-remake-production.up.railway.app/service/list/`,
+        'Gọi chi tiết dịch vụ(GET):': `https://api-gp-remake-production.up.railway.app/service/detail/:id`,
+        'Cập nhập dịch vụ(PUT):': `https://api-gp-remake-production.up.railway.app/service/update/:id`,
+        'Xoá dịch vụ(DELETE):': `https://api-gp-remake-production.up.railway.app/service/delete/:id`,
     });
 });
 // TODO: ✅ Tạo dịch vụ
@@ -40,7 +39,6 @@ router.post('/create/', upload.single('image'), async (req, res) => {
                     name: req.body.name,
                     description: req.body.description,
                     price: req.body.price,
-                    imageQuantity: req.body.imageQuantity,
                     image: result.secure_url,
                     cloudinary_id: result.public_id,
                 });
@@ -103,7 +101,7 @@ router.get('/detail/:id', async (req, res) => {
 // TODO: ✅ Cập nhập dịch vụ
 router.put('/update/:id', upload.single('image'), async (req, res) => {
     try {
-        if (req.body.name == '' || req.body.description == '' || req.body.price == '' || req.body.imageQuantity == '') {
+        if (req.body.name == '' || req.body.description == '' || req.body.price == '') {
             return res.status(500).json({
                 Error: 'Vui lòng điền đầy đủ thông tin',
             });
@@ -117,7 +115,6 @@ router.put('/update/:id', upload.single('image'), async (req, res) => {
             name: req.body.name || service.name,
             description: req.body.description || service.description,
             price: req.body.price || service.price,
-            imageQuantity: req.body.imageQuantity || service.imageQuantity,
         };
 
         if (req.file != null) {
@@ -152,16 +149,7 @@ router.put('/update/:id', upload.single('image'), async (req, res) => {
 // TODO: ✅ Xoá dịch vụ ([:id] = id của dịch vụ )
 router.delete('/delete/:id', async (req, res) => {
     try {
-        // * Kiểm tra xem dịch vụ có nằm trong hóa đơn nào không
-        const isServiceInOrder = await OrderModels.findOne({
-            'services.serviceID': req.params.id,
-        });
-        // * Nếu dịch vụ tồn tại trong hóa đơn, không cho phép xóa
-        if (isServiceInOrder) {
-            return res.status(400).json({
-                message: 'Dịch vụ này không thể xóa vì đã có trong hóa đơn.',
-            });
-        }
+
         // * Nếu dịch vụ không nằm trong hóa đơn, tiếp tục quá trình xóa
         const service = await ServiceModels.findByIdAndDelete(req.params.id);
         // * Xoá tệp trên Cloudinary liên quan đến dịch vụ

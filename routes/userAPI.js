@@ -1,7 +1,6 @@
 require('colors');
 // mongodb user model
 const userModels = require('../models/userModel');
-const orderModels = require('../models/orderModel.js');
 require('dotenv').config();
 const session = require('express-session');
 //Tải lên ảnh
@@ -17,21 +16,21 @@ const moment = require('moment');
 router.get('/', (req, res) => {
     res.json({
         status: 'API ON',
-        'Đăng ký(POST):': `https://api-graduation-project-production.up.railway.app/user/register`,
-        'Đăng nhập(POST):': `https://api-graduation-project-production.up.railway.app/user/login`,
-        'Đăng xuất(GET):': `https://api-graduation-project-production.up.railway.app/user/logout/:id`, //* lưu ý: sử dụng id của session khi đăng nhập(khi đăng nhập trên điện thoại sẽ tự lưu vào local tạm thời của ứng dụng.)
-        'Cập nhập người dùng(PUT):': `https://api-graduation-project-production.up.railway.app/user/update/:id`,
-        'Đổi mật khẩu(PUT):': `https://api-graduation-project-production.up.railway.app/user/change-password/:id`,
-        'Xoá người dùng(DELETE):': `https://api-graduation-project-production.up.railway.app/user/delete/:id`,
-        'Gọi danh sách người dùng(GET):': `https://api-graduation-project-production.up.railway.app/user/list`,
-        'Gọi chi tiết người dùng(GET):': `https://api-graduation-project-production.up.railway.app/user/detail/:id`,
-        'Thêm lương người dùng(POST):': `https://api-graduation-project-production.up.railway.app/user/salary/:id`,
-        'Gọi danh sách lương người dùng(GET):': `https://api-graduation-project-production.up.railway.app/user/salary/:id`,
-        'Cập nhập lương người dùng(PUT):': `https://api-graduation-project-production.up.railway.app/user/salary/:id`,
-        'Xoá lương người dùng(DELETE):': `https://api-graduation-project-production.up.railway.app/user/salary/:id`,
-        'Quên mật khẩu(GET):': `https://api-graduation-project-production.up.railway.app/user/forgot-password/`,
-        'Xác nhận mã được gửi về mail(POST):': `https://api-graduation-project-production.up.railway.app/user/verify-confirmation-code/`,
-        'Đặt lại mật khẩu mới(PUT):': `https://api-graduation-project-production.up.railway.app/user/reset-password/`,
+        'Đăng ký(POST):': `https://api-gp-remake-production.up.railway.app/user/register`,
+        'Đăng nhập(POST):': `https://api-gp-remake-production.up.railway.app/user/login`,
+        'Đăng xuất(GET):': `https://api-gp-remake-production.up.railway.app/user/logout/:id`,
+        'Cập nhập người dùng(PUT):': `https://api-gp-remake-production.up.railway.app/user/update/:id`,
+        'Đổi mật khẩu(PUT):': `https://api-gp-remake-production.up.railway.app/user/change-password/:id`,
+        'Xoá người dùng(DELETE):': `https://api-gp-remake-production.up.railway.app/user/delete/:id`,
+        'Gọi danh sách người dùng(GET):': `https://api-gp-remake-production.up.railway.app/user/list`,
+        'Gọi chi tiết người dùng(GET):': `https://api-gp-remake-production.up.railway.app/user/detail/:id`,
+        'Thêm lương người dùng(POST):': `https://api-gp-remake-production.up.railway.app/user/salary/:id`,
+        'Gọi danh sách lương người dùng(GET):': `https://api-gp-remake-production.up.railway.app/user/salary/:id`,
+        'Cập nhập lương người dùng(PUT):': `https://api-gp-remake-production.up.railway.app/user/salary/:id`,
+        'Xoá lương người dùng(DELETE):': `https://api-gp-remake-production.up.railway.app/user/salary/:id`,
+        'Quên mật khẩu(GET):': `https://api-gp-remake-production.up.railway.app/user/forgot-password/`,
+        'Xác nhận mã được gửi về mail(POST):': `https://api-gp-remake-production.up.railway.app/user/verify-confirmation-code/`,
+        'Đặt lại mật khẩu mới(PUT):': `https://api-gp-remake-production.up.railway.app/user/reset-password/`,
     });
 });
 // TODO: Đăng ký người dùng
@@ -1290,16 +1289,6 @@ router.delete('/delete/:id', async (req, res) => {
         if (req.params.id == '') {
             return res.status(400).json({
                 message: 'Vui lòng nhập đủ thông tin',
-            });
-        }
-        // * Kiểm tra xem người dùng có nằm trong hóa đơn nào không
-        const isUserInOrder = await orderModels.findOne({
-            'staffs.staffID': req.params.id,
-        });
-        // * Nếu người dùng tồn tại trong hóa đơn, không cho phép xóa
-        if (isUserInOrder) {
-            return res.status(400).json({
-                message: 'Người dùng này không thể xóa vì đã có trong hóa đơn.',
             });
         }
         // * Nếu người dùng không nằm trong hóa đơn, tiếp tục quá trình xóa

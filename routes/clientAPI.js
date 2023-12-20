@@ -2,7 +2,6 @@ require('colors');
 // mongodb user model
 const userModels = require('../models/userModel');
 const clientModels = require('../models/clientModel');
-const orderModels = require('../models/orderModel.js');
 require('dotenv').config();
 //Tải lên ảnh
 const cloudinary = require('../middleware/cloudinary.js');
@@ -13,11 +12,11 @@ const moment = require('moment');
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo khách hàng mới(POST):': `https://api-graduation-project-production.up.railway.app/client/create`,
-        'Gọi danh sách khách hàng(GET):': `https://api-graduation-project-production.up.railway.app/client/list`,
-        'Gọi chi tiết khách hàng(GET):': `https://api-graduation-project-production.up.railway.app/client/detail/:id`,
-        'Cập nhập thông tin khách hàng(PUT):': `https://api-graduation-project-production.up.railway.app/client/update/:id`,
-        'Xoá khách hàng(DELETE):': `https://api-graduation-project-production.up.railway.app/client/delete/:id`,
+        'Tạo khách hàng mới(POST):': `https://api-gp-remake-production.up.railway.app/client/create`,
+        'Gọi danh sách khách hàng(GET):': `https://api-gp-remake-production.up.railway.app/client/list`,
+        'Gọi chi tiết khách hàng(GET):': `https://api-gp-remake-production.up.railway.app/client/detail/:id`,
+        'Cập nhập thông tin khách hàng(PUT):': `https://api-gp-remake-production.up.railway.app/client/update/:id`,
+        'Xoá khách hàng(DELETE):': `https://api-gp-remake-production.up.railway.app/client/delete/:id`,
     });
 });
 
@@ -156,17 +155,6 @@ router.put('/update/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
     try {
         const { id } = req.params;
-
-        // * Kiểm tra xem khách hàng có nằm trong hóa đơn nào như là khách hàng hay nhân viên không
-        const isClientInOrderAsClient = await orderModels.findOne({ client: id });
-
-        // * Nếu khách hàng tồn tại trong hóa đơn, không cho phép xóa
-        if (isClientInOrderAsClient) {
-            return res.status(400).json({
-                status: false,
-                message: 'khách hàng này không thể xóa vì đã có trong hóa đơn.',
-            });
-        }
         // * Xoá người dùng
         const client = await clientModels.findByIdAndDelete(id);
         if (!client) {
