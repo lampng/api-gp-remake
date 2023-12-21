@@ -37,12 +37,20 @@ const contractSchema = mongoose.Schema(
         location: {
             type: String,
         },
+        prepayment: {
+            type: Number,
+            min: 0,
+        },
         additionalCosts: [
             {
                 description: { type: String, required: true },
                 price: { type: Number, required: true, min: 0 },
             },
         ],
+        priceTotal: {
+            type: Number,
+            min: 0,
+        },
         status: {
             type: String,
             default: 'Chưa thanh toán',
