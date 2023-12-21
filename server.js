@@ -44,6 +44,7 @@ app.get("/", (req, res) => {
         "Client(Khách hàng):": `https://api-gp-remake-production.up.railway.app/client/`,
         "Service(Dịch vụ):": `https://api-gp-remake-production.up.railway.app/service/`,
         "Wedding Outfit(Áo cưới):": `https://api-gp-remake-production.up.railway.app/WeddingOutfit/`,
+        "contract(Hợp đồng):": `https://api-gp-remake-production.up.railway.app/contract/`,
         "Statistic(Thống kê):": `https://api-gp-remake-production.up.railway.app/statistic/`,
     })
 })
