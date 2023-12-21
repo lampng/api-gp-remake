@@ -40,7 +40,7 @@ const contractSchema = mongoose.Schema(
         additionalCosts: [
             {
                 description: { type: String, required: true },
-                amount: { type: Number, required: true, min: 0 },
+                price: { type: Number, required: true, min: 0 },
             },
         ],
         status: {

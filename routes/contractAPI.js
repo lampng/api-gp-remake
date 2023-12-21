@@ -58,6 +58,7 @@ router.post('/create', async (req, res) => {
             workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').format('HH:mm DD/MM/YYYY'),
             deliveryDate: moment(req.body.deliveryDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
             location: req.body.location,
+            additionalCosts: req.body.additionalCosts,
             active: active,
         });
         contract.save();
