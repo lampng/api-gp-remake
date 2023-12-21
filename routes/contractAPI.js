@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
         'Tạo hợp đồng(POST):': `https://api-gp-remake-production.up.railway.app/contract/create/`,
         'Gọi danh sách(GET):': `https://api-gp-remake-production.up.railway.app/contract/list/`,
         'Gọi danh sách theo userId(GET):': `https://api-gp-remake-production.up.railway.app/contract/list/:id`,
+        'Xoá hợp đồng(DELETE):': `https://api-gp-remake-production.up.railway.app/contract/delete/:id`,
     });
 });
 router.post('/create', async (req, res) => {
