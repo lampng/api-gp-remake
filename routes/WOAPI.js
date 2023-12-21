@@ -20,7 +20,6 @@ router.get('/', (req, res) => {
         'Xoá (DELETE)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/delete/:id`,
     });
 });
-
 // TODO: Thêm áo cưới
 router.post('/create', upload.single('image'), async (req, res) => {
     try {
