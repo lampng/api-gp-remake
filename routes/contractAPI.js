@@ -124,12 +124,51 @@ router.get('/list', async (req, res) => {
 });
 router.get('/list/:id', async (req, res) => {
     try {
-        const data = await contractModels.find({ userId: req.params.id });
-        data.sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt);
+        const priority = {
+            'Chưa thanh toán': 1,
+            'Đã thanh toán': 2,
+        };
+        const data = await contractModels
+            .find(
+                {
+                    status: {
+                        $in: ['Chưa thanh toán', 'Đã thanh toán'],
+                    },
+                },
+                { userId: req.params.id },
+            )
+            .populate({
+                path: 'clientId',
+                model: 'client',
+                select: 'name address phone gender creatorID',
+            })
+            .populate({
+                path: 'serviceIds',
+                model: 'service',
+                select: 'name description price image',
+            })
+            .populate({
+                path: 'weddingOutfitIds',
+                model: 'weddingOutfit',
+                select: 'name description price image',
+            })
+            .exec();
+
+        const sort = data.map((data) => {
+            return {
+                ...data._doc,
+                Priority: priority[data.status] || 0,
+            };
         });
-        res.status(200).json(data);
-        console.log(`✅ Gọi danh sách hợp đồng của ${data[0].userId} thành công`.green.bold);
+
+        sort.sort((a, b) => {
+            return a.Priority - b.Priority || new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        console.log(`✅ Gọi danh sách đơn hàng thành công`.green.bold);
+        res.status(200).json(sort);
+
+        // res.status(200).json(data);
+        console.log(`✅ Gọi danh sách hợp đồng thành công`.green.bold);
     } catch (error) {
         console.log(`❗  ${error.message}`.bgRed.white.strikethrough.bold);
         res.status(500).json({
