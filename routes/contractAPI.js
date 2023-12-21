@@ -97,4 +97,20 @@ router.get('/list/:id', async (req, res) => {
         });
     }
 });
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const contract = await contractModels.findByIdAndDelete(req.params.id);
+
+        console.log(`✅ Xoá thành công`);
+        res.status(200).json({
+            message: 'Hợp đồng đã được xóa thành công',
+            contract: contract.id,
+        });
+    } catch (error) {
+        console.error(`❗ Không tìm thấy hợp đồng`);
+        res.status(500).json({
+            message: 'Không tìm thấy hợp đồng hoặc có lỗi xảy ra',
+        });
+    }
+});
 module.exports = router;
