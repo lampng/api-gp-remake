@@ -16,7 +16,8 @@ const moment = require('moment');
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        check,
+        'Tạo hợp đồng(POST):': `https://api-gp-remake-production.up.railway.app/contract/create/`,
+        'Gọi danh sách(GET):': `https://api-gp-remake-production.up.railway.app/contract/list/`,
     });
 });
 router.post('/create', async (req, res) => {
