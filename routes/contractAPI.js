@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
         status: 'Đang phát triển',
         'Tạo hợp đồng(POST):': `https://api-gp-remake-production.up.railway.app/contract/create/`,
         'Gọi danh sách(GET):': `https://api-gp-remake-production.up.railway.app/contract/list/`,
+        'Gọi danh sách theo userId(GET):': `https://api-gp-remake-production.up.railway.app/contract/list/:id`,
     });
 });
 router.post('/create', async (req, res) => {
@@ -73,6 +74,21 @@ router.get('/list', async (req, res) => {
         });
         res.status(200).json(data);
         console.log(`✅ Gọi danh sách hợp đồng thành công`.green.bold);
+    } catch (error) {
+        console.log(`❗  ${error.message}`.bgRed.white.strikethrough.bold);
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+});
+router.get('/list/:id', async (req, res) => {
+    try {
+        const data = await contractModels.find({userId: req.params.id });
+        data.sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        res.status(200).json(data);
+        console.log(`✅ Gọi danh sách hợp đồng của ${data[0].userId} thành công`.green.bold);
     } catch (error) {
         console.log(`❗  ${error.message}`.bgRed.white.strikethrough.bold);
         res.status(500).json({
