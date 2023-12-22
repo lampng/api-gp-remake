@@ -19,6 +19,8 @@ router.get('/', (req, res) => {
         'Tạo hợp đồng(POST):': `https://api-gp-remake-production.up.railway.app/contract/create/`,
         'Gọi danh sách(GET):': `https://api-gp-remake-production.up.railway.app/contract/list/`,
         'Gọi danh sách theo userId(GET):': `https://api-gp-remake-production.up.railway.app/contract/list/:id`,
+        'Chi tiết hợp đồng(GET):': `https://api-gp-remake-production.up.railway.app/contract/detail/:id`,
+        'Sửa hợp đồng(PUT):': `https://api-gp-remake-production.up.railway.app/contract/update/:id`,
         'Xoá hợp đồng(DELETE):': `https://api-gp-remake-production.up.railway.app/contract/delete/:id`,
     });
 });
@@ -199,6 +201,35 @@ router.get('/detail/:id', async (req, res) => {
     } catch (error) {
         console.log(`❗  ${error.message}`.bgRed.white.strikethrough.bold);
         res.status(500).json({
+            message: error.message,
+        });
+    }
+});
+// TODO: sửa hợp đồng
+router.put('/update/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+        const options = { new: true };
+        const updatedContract = await contractModels.findByIdAndUpdate(id, updates, options);
+
+        if (!updatedContract) {
+            return res.status(404).json({
+                success: false,
+                message: `Không tìm thấy hợp đồng`,
+            });
+        }
+
+        console.log(`✅ Sửa hợp đồng thành công`.green.bold);
+
+        res.status(200).json({
+            success: true,
+            message: `Sửa hợp đồng [${id}] thành công`
+        });
+    } catch (error) {
+        console.error(`❗ ${error.message}`);
+        res.status(500).json({
+            success: false,
             message: error.message,
         });
     }
