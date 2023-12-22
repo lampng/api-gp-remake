@@ -22,6 +22,7 @@ router.get('/', (req, res) => {
         'Xoá hợp đồng(DELETE):': `https://api-gp-remake-production.up.railway.app/contract/delete/:id`,
     });
 });
+//  TODO: Tạo hợp đồng
 router.post('/create', async (req, res) => {
     try {
         // Kiểm tra các tham số rỗng
@@ -35,7 +36,7 @@ router.post('/create', async (req, res) => {
             'workDate',
             'deliveryDate',
             'location',
-            'priceTotal'
+            'priceTotal',
         ];
         const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
 
@@ -71,6 +72,7 @@ router.post('/create', async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 });
+// TODO: Gọi danh sách
 router.get('/list', async (req, res) => {
     try {
         const priority = {
@@ -110,11 +112,8 @@ router.get('/list', async (req, res) => {
         sort.sort((a, b) => {
             return a.Priority - b.Priority || new Date(b.createdAt) - new Date(a.createdAt);
         });
-        console.log(`✅ Gọi danh sách đơn hàng thành công`.green.bold);
-        res.status(200).json(sort);
-
-        // res.status(200).json(data);
         console.log(`✅ Gọi danh sách hợp đồng thành công`.green.bold);
+        res.status(200).json(sort);
     } catch (error) {
         console.log(`❗  ${error.message}`.bgRed.white.strikethrough.bold);
         res.status(500).json({
@@ -122,6 +121,7 @@ router.get('/list', async (req, res) => {
         });
     }
 });
+// TODO: Gọi danh sách theo userId
 router.get('/list/:id', async (req, res) => {
     try {
         const priority = {
@@ -164,11 +164,8 @@ router.get('/list/:id', async (req, res) => {
         sort.sort((a, b) => {
             return a.Priority - b.Priority || new Date(b.createdAt) - new Date(a.createdAt);
         });
-        console.log(`✅ Gọi danh sách đơn hàng thành công`.green.bold);
-        res.status(200).json(sort);
-
-        // res.status(200).json(data);
         console.log(`✅ Gọi danh sách hợp đồng thành công`.green.bold);
+        res.status(200).json(sort);
     } catch (error) {
         console.log(`❗  ${error.message}`.bgRed.white.strikethrough.bold);
         res.status(500).json({
@@ -176,6 +173,37 @@ router.get('/list/:id', async (req, res) => {
         });
     }
 });
+// TODO: Gọi chi tiết
+router.get('/detail/:id', async (req, res) => {
+    try {
+        const data = await contractModels
+            .findById(req.params.id)
+            .populate({
+                path: 'clientId',
+                model: 'client',
+                select: 'name address phone gender creatorID',
+            })
+            .populate({
+                path: 'serviceIds',
+                model: 'service',
+                select: 'name description price image',
+            })
+            .populate({
+                path: 'weddingOutfitIds',
+                model: 'weddingOutfit',
+                select: 'name description price image',
+            })
+            .exec();
+        console.log(`✅ Gọi chi tiết hợp đồng thành công`.green.bold);
+        res.status(200).json(data);
+    } catch (error) {
+        console.log(`❗  ${error.message}`.bgRed.white.strikethrough.bold);
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+});
+// TODO: Xóa hợp đồng
 router.delete('/delete/:id', async (req, res) => {
     try {
         const contract = await contractModels.findByIdAndDelete(req.params.id);
