@@ -234,6 +234,7 @@ router.put('/update/:id', async (req, res) => {
         });
     }
 });
+// TODO: 
 // TODO: Xóa hợp đồng
 router.delete('/delete/:id', async (req, res) => {
     try {

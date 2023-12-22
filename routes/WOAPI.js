@@ -25,7 +25,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
     try {
         const checkField = (field) => !field;
 
-        const requiredFields = ['name', 'description', 'size', 'price', 'color'];
+        const requiredFields = ['name', 'size', 'price', 'color'];
         const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
 
         if (req.file == null || missingFields.length > 0) {
@@ -81,42 +81,80 @@ router.get('/detail/:id', async (req, res) => {
     }
 });
 // TODO: Sửa thông tin áo cưới
+// router.put('/update/:id', upload.single('image'), async (req, res) => {
+//     try {
+//         const data = await WOModel.findById(req.params.id);
+
+//         const checkField = (field) => !field;
+
+//         const requiredFields = ['name', 'size', 'price', 'color', 'status'];
+//         const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
+
+//         if (missingFields.length > 0) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: `Vui lòng điền đầy đủ thông tin các trường còn thiếu ${missingFields.join(', ')}`,
+//             });
+//         }
+//         if (req.file != null) {
+//             await cloudinary.uploader.destroy(data.cloudinary_id);
+//             const result = await cloudinary.uploader.upload(req.file.path, {
+//                 folder: 'api-graduation-project/wedding-outfit',
+//             });
+//             data.image = result.secure_url;
+//             data.cloudinary_id = result.public_id;
+//         } else {
+//             data.image = data.image;
+//             data.cloudinary_id = data.cloudinary_id;
+//         }
+//         await WOModel.findByIdAndUpdate(data.id, data, {
+//             new: true,
+//         });
+//         console.log(`✅ Sửa áo cưới thành công`.green.bold);
+//         res.status(200).json({
+//             success: true,
+//             message: 'Sửa áo cưới thành công',
+//         });
+//     } catch (error) {
+//         return res.status(500).send(error.message);
+//     }
+// });
 router.put('/update/:id', upload.single('image'), async (req, res) => {
     try {
-        const data = await WOModel.findById(req.params.id);
+        const { id } = req.params;
+        const updates = req.body;
 
-        const checkField = (field) => !field;
-
-        const requiredFields = ['name', 'description', 'size', 'price', 'color', 'status'];
-        const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
-
-        if (missingFields.length > 0) {
-            return res.status(400).json({
-                success: false,
-                message: `Vui lòng điền đầy đủ thông tin các trường còn thiếu ${missingFields.join(', ')}`,
-            });
-        }
-        if (req.file != null) {
+        if (req.file) {
             await cloudinary.uploader.destroy(data.cloudinary_id);
             const result = await cloudinary.uploader.upload(req.file.path, {
                 folder: 'api-graduation-project/wedding-outfit',
             });
-            data.image = result.secure_url;
-            data.cloudinary_id = result.public_id;
-        } else {
-            data.image = data.image;
-            data.cloudinary_id = data.cloudinary_id;
+            updates.image = result.secure_url;
+            updates.cloudinary_id = result.public_id;
         }
-        await WOModel.findByIdAndUpdate(data.id, data, {
-            new: true,
-        });
+
+        const options = { new: true };
+        const updatedContract = await WOModel.findByIdAndUpdate(id, updates, options);
+
+        if (!updatedContract) {
+            return res.status(404).json({
+                success: false,
+                message: `Không tìm thấy áo cưới`,
+            });
+        }
+
         console.log(`✅ Sửa áo cưới thành công`.green.bold);
+
         res.status(200).json({
             success: true,
-            message: 'Sửa áo cưới thành công',
+            message: `Sửa áo cưới [${id}] thành công`,
         });
     } catch (error) {
-        return res.status(500).send(error.message);
+        console.error(`❗ ${error.message}`);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
     }
 });
 // TODO: Xoá áo cưới
@@ -132,7 +170,6 @@ router.delete('/delete/:id', async (req, res) => {
         }
 
         await cloudinary.uploader.destroy(data.cloudinary_id);
-
 
         console.log(`✅ Xoá áo cưới: [${data.name}] thành công`.green.bold);
 
