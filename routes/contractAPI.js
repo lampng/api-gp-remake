@@ -90,7 +90,7 @@ router.get('/list', async (req, res) => {
             .populate({
                 path: 'clientId',
                 model: 'client',
-                select: 'name address phone gender creatorID',
+                select: 'name address phone phone2 gender',
             })
             .populate({
                 path: 'serviceIds',
@@ -142,7 +142,7 @@ router.get('/list/:id', async (req, res) => {
             .populate({
                 path: 'clientId',
                 model: 'client',
-                select: 'name address phone gender creatorID',
+                select: 'name address phone phone2 gender',
             })
             .populate({
                 path: 'serviceIds',
@@ -183,7 +183,7 @@ router.get('/detail/:id', async (req, res) => {
             .populate({
                 path: 'clientId',
                 model: 'client',
-                select: 'name address phone gender creatorID',
+                select: 'name address phone phone2 gender',
             })
             .populate({
                 path: 'serviceIds',
