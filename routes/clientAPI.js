@@ -28,7 +28,7 @@ router.get('/list', async (req, res) => {
         // TODO: Sắp xếp giảm dần
         clients.sort((a, b) => b.createdAt - a.createdAt);
 
-        res.status(200).json(updatedClients);
+        res.status(200).json(clients);
         console.log(`✅ Gọi danh sách khách hàng thành công`.green.bold);
     } catch (error) {
         console.log(`❗  ${error.message}`.bgRed.white.strikethrough.bold);
