@@ -13,22 +13,13 @@ const clientSchema = mongoose.Schema(
             type: String,
             require: false,
         },
-        creatorID: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'user',
-            require: true,
-        },
-        birthday: {
+        phone2: {
             type: String,
             require: false,
         },
         gender: {
             type: String,
             require: false,
-        },
-        datejoin: {
-            type: Date,
-            default: Date.now(),
         },
     },
     {

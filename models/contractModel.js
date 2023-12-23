@@ -55,9 +55,9 @@ const contractSchema = mongoose.Schema(
             type: String,
             default: 'Chưa thanh toán',
         },
-        active:{
+        active: {
             type: Boolean,
-        }
+        },
     },
     {
         timestamps: true,
