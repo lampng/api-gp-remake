@@ -48,4 +48,84 @@ router.get('/totalRevenue', async (req, res) => {
         res.status(500).json({ error: 'Đã xảy ra lỗi' });
     }
 });
+router.get('/service-usage', async (req, res) => {
+    try {
+        const result = await contractModels.aggregate([
+            {
+                $unwind: '$services',
+            },
+            {
+                $group: {
+                    _id: '$services.serviceId',
+                    count: { $sum: 1 },
+                },
+            },
+            {
+                $sort: { count: -1 },
+            },
+            {
+                $limit: 10,
+            },
+        ]);
+        // chúng ta cần tìm trong collection ServiceModels để lấy chi tiết.
+        const servicesDetails = await serviceModels
+            .find({
+                _id: {
+                    $in: result.map((service) => service._id),
+                },
+            })
+            .lean(); 
+
+        const servicesWithCount = result.map((service) => {
+            const serviceDetail = servicesDetails.find((detail) => detail._id.equals(service._id));
+            return {
+                ...serviceDetail,
+                count: service.count,
+            };
+        });
+        res.json(servicesWithCount);
+    } catch (error) {
+        console.error('Lỗi khi lấy thông tin sử dụng dịch vụ:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+router.get('/wedding-outfit-usage', async (req, res) => {
+    try {
+        const result = await contractModels.aggregate([
+            {
+                $unwind: '$weddingOutfit',
+            },
+            {
+                $group: {
+                    _id: '$weddingOutfit.weddingOutfitId',
+                    count: { $sum: 1 },
+                },
+            },
+            {
+                $sort: { count: -1 },
+            },
+            {
+                $limit: 10,
+            },
+        ]);
+
+        const WOsDetails = await WOModels.find({
+            _id: {
+                $in: result.map((WO) => WO._id),
+            },
+        }).lean();
+
+        const WOsWithCount = result.map((WO) => {
+            const WODetail = WOsDetails.find((detail) => detail._id.equals(WO._id));
+            return {
+                ...WODetail,
+                count: WO.count,
+            };
+        });
+        res.json(WOsWithCount);
+    } catch (error) {
+        console.error('Lỗi khi lấy thông tin sử dụng áo cưới:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 module.exports = router;
