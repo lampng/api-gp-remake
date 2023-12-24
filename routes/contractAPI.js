@@ -25,7 +25,6 @@ router.get('/', (req, res) => {
     });
 });
 //  TODO: Tạo hợp đồng
-// !: Chỉnh sửa hợp đồng: thêm váy cưới [ID, ngày thuê, ngày trả, tự động đổi trạng thái váy cưới thành 'Đang được thuê']
 router.post('/create', async (req, res) => {
     try {
         // Kiểm tra các tham số rỗng
