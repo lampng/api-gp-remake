@@ -25,55 +25,6 @@ router.get('/', (req, res) => {
     });
 });
 //  TODO: Tạo hợp đồng
-// router.post('/create', async (req, res) => {
-//     try {
-//         // Kiểm tra các tham số rỗng
-//         const checkField = (field) => !field;
-//         const requiredFields = [
-//             'userId',
-//             'clientId',
-//             'serviceIds',
-//             'weddingOutfitIds',
-//             'note',
-//             'workDate',
-//             'deliveryDate',
-//             'location',
-//             'priceTotal',
-//         ];
-//         const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
-
-//         if (missingFields.length > 0) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: `Vui lòng điền đầy đủ thông tin các trường còn thiếu ${missingFields.join(', ')}`,
-//             });
-//         }
-//         const user = await userModels.findById(req.body.userId);
-//         if (user.role == 'Quản lý') {
-//             var active = true;
-//         } else {
-//             var active = false;
-//         }
-//         const contract = await contractModels.create({
-//             userId: req.body.userId,
-//             clientId: req.body.clientId,
-//             serviceIds: req.body.serviceIds,
-//             weddingOutfitIds: req.body.weddingOutfitIds,
-//             note: req.body.note,
-//             workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').format('HH:mm DD/MM/YYYY'),
-//             deliveryDate: moment(req.body.deliveryDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
-//             location: req.body.location,
-//             prepayment: req.body.prepayment,
-//             additionalCosts: req.body.additionalCosts,
-//             priceTotal: req.body.priceTotal,
-//             active: active,
-//         });
-//         contract.save();
-//         res.status(201).json({ success: true, message: 'Tạo hợp đồng thành công' });
-//     } catch (error) {
-//         res.status(500).json({ success: false, message: error.message });
-//     }
-// });
 // !: Chỉnh sửa hợp đồng: thêm váy cưới [ID, ngày thuê, ngày trả, tự động đổi trạng thái váy cưới thành 'Đang được thuê']
 router.post('/create', async (req, res) => {
     try {
@@ -94,7 +45,6 @@ router.post('/create', async (req, res) => {
         } else {
             var active = false;
         }
-        const totalPrice = await calculateTotalPrice(req.body);
         const contract = await contractModels.create({
             userId: req.body.userId,
             clientId: req.body.clientId,
@@ -123,7 +73,7 @@ router.get('/list', async (req, res) => {
         const priority = {
             'Chưa thanh toán': 1,
             'Đã thanh toán': 2,
-            Huỷ: 3,
+            'Huỷ': 3,
         };
         const data = await contractModels
             .find({

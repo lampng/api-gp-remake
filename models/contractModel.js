@@ -1,19 +1,11 @@
 const mongoose = require('mongoose');
 const contractServices = mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-    },
     serviceId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'service',
     },
 });
 const contractWeddingOutfits = mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-    },
     weddingOutfitId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'weddingOutfit',
