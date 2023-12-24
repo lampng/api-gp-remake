@@ -3,7 +3,7 @@ require('colors');
 const userModels = require('../models/userModel');
 const clientModels = require('../models/clientModel');
 const contractModels = require('../models/contractModel');
-const ServiceModel = require('../models/ServiceModel');
+const ServiceModels = require('../models/ServiceModel');
 const WeddingOutfitModels = require('../models/WeddingOutfitModel');
 const discountModel = require('../models/discountModel');
 require('dotenv').config();
@@ -25,21 +25,61 @@ router.get('/', (req, res) => {
     });
 });
 //  TODO: Tạo hợp đồng
+// router.post('/create', async (req, res) => {
+//     try {
+//         // Kiểm tra các tham số rỗng
+//         const checkField = (field) => !field;
+//         const requiredFields = [
+//             'userId',
+//             'clientId',
+//             'serviceIds',
+//             'weddingOutfitIds',
+//             'note',
+//             'workDate',
+//             'deliveryDate',
+//             'location',
+//             'priceTotal',
+//         ];
+//         const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
+
+//         if (missingFields.length > 0) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: `Vui lòng điền đầy đủ thông tin các trường còn thiếu ${missingFields.join(', ')}`,
+//             });
+//         }
+//         const user = await userModels.findById(req.body.userId);
+//         if (user.role == 'Quản lý') {
+//             var active = true;
+//         } else {
+//             var active = false;
+//         }
+//         const contract = await contractModels.create({
+//             userId: req.body.userId,
+//             clientId: req.body.clientId,
+//             serviceIds: req.body.serviceIds,
+//             weddingOutfitIds: req.body.weddingOutfitIds,
+//             note: req.body.note,
+//             workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').format('HH:mm DD/MM/YYYY'),
+//             deliveryDate: moment(req.body.deliveryDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+//             location: req.body.location,
+//             prepayment: req.body.prepayment,
+//             additionalCosts: req.body.additionalCosts,
+//             priceTotal: req.body.priceTotal,
+//             active: active,
+//         });
+//         contract.save();
+//         res.status(201).json({ success: true, message: 'Tạo hợp đồng thành công' });
+//     } catch (error) {
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// });
+// !: Chỉnh sửa hợp đồng: thêm váy cưới [ID, ngày thuê, ngày trả, tự động đổi trạng thái váy cưới thành 'Đang được thuê']
 router.post('/create', async (req, res) => {
     try {
         // Kiểm tra các tham số rỗng
         const checkField = (field) => !field;
-        const requiredFields = [
-            'userId',
-            'clientId',
-            'serviceIds',
-            'weddingOutfitIds',
-            'note',
-            'workDate',
-            'deliveryDate',
-            'location',
-            'priceTotal',
-        ];
+        const requiredFields = ['userId', 'clientId', 'services', 'workDate', 'deliveryDate', 'location'];
         const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
 
         if (missingFields.length > 0) {
@@ -54,20 +94,23 @@ router.post('/create', async (req, res) => {
         } else {
             var active = false;
         }
+        const totalPrice = await calculateTotalPrice(req.body);
         const contract = await contractModels.create({
             userId: req.body.userId,
             clientId: req.body.clientId,
-            serviceIds: req.body.serviceIds,
-            weddingOutfitIds: req.body.weddingOutfitIds,
+            services: req.body.services,
+            weddingOutfit: req.body.weddingOutfit,
             note: req.body.note,
             workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').format('HH:mm DD/MM/YYYY'),
             deliveryDate: moment(req.body.deliveryDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
             location: req.body.location,
             prepayment: req.body.prepayment,
             additionalCosts: req.body.additionalCosts,
-            priceTotal: req.body.priceTotal,
+            // priceTotal: totalPrice,
             active: active,
         });
+        contract.save();
+
         contract.save();
         res.status(201).json({ success: true, message: 'Tạo hợp đồng thành công' });
     } catch (error) {
@@ -80,6 +123,7 @@ router.get('/list', async (req, res) => {
         const priority = {
             'Chưa thanh toán': 1,
             'Đã thanh toán': 2,
+            Huỷ: 3,
         };
         const data = await contractModels
             .find({
@@ -88,17 +132,22 @@ router.get('/list', async (req, res) => {
                 },
             })
             .populate({
+                path: 'userId',
+                model: 'user',
+                select: 'name role job phone',
+            })
+            .populate({
                 path: 'clientId',
                 model: 'client',
                 select: 'name address phone phone2 gender',
             })
             .populate({
-                path: 'serviceIds',
+                path: 'services.serviceId',
                 model: 'service',
                 select: 'name description price image',
             })
             .populate({
-                path: 'weddingOutfitIds',
+                path: 'weddingOutfit.weddingOutfitId',
                 model: 'weddingOutfit',
                 select: 'name description price image',
             })
@@ -129,6 +178,7 @@ router.get('/list/:id', async (req, res) => {
         const priority = {
             'Chưa thanh toán': 1,
             'Đã thanh toán': 2,
+            'Huỷ': 3,
         };
         const data = await contractModels
             .find(
@@ -145,12 +195,12 @@ router.get('/list/:id', async (req, res) => {
                 select: 'name address phone phone2 gender',
             })
             .populate({
-                path: 'serviceIds',
+                path: 'services.serviceId',
                 model: 'service',
                 select: 'name description price image',
             })
             .populate({
-                path: 'weddingOutfitIds',
+                path: 'weddingOutfit.weddingOutfitId',
                 model: 'weddingOutfit',
                 select: 'name description price image',
             })
@@ -186,12 +236,12 @@ router.get('/detail/:id', async (req, res) => {
                 select: 'name address phone phone2 gender',
             })
             .populate({
-                path: 'serviceIds',
+                path: 'services.serviceId',
                 model: 'service',
                 select: 'name description price image',
             })
             .populate({
-                path: 'weddingOutfitIds',
+                path: 'weddingOutfit.weddingOutfitId',
                 model: 'weddingOutfit',
                 select: 'name description price image',
             })
@@ -224,7 +274,7 @@ router.put('/update/:id', async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: `Sửa hợp đồng [${id}] thành công`
+            message: `Sửa hợp đồng [${id}] thành công`,
         });
     } catch (error) {
         console.error(`❗ ${error.message}`);
@@ -234,7 +284,6 @@ router.put('/update/:id', async (req, res) => {
         });
     }
 });
-// TODO: 
 // TODO: Xóa hợp đồng
 router.delete('/delete/:id', async (req, res) => {
     try {
