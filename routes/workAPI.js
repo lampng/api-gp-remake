@@ -15,6 +15,10 @@ const moment = require('moment');
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
+        'Tạo loại công việc (POST):': `https://api-gp-remake-production.up.railway.app/work/create`,
+        'Danh sách loại công việc (GET):': `https://api-gp-remake-production.up.railway.app/work/list`,
+        'Sửa loại công việc (PUT):': `https://api-gp-remake-production.up.railway.app/work/update/:id`,
+        'Xoá loại công việc (DELETE):': `https://api-gp-remake-production.up.railway.app/work/delete/:id`,
     });
 });
 // TODO: Thêm loại công việc
