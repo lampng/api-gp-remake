@@ -12,7 +12,7 @@ function route(app) {
     app.use('/WeddingOutfit', WOAPI);
     app.use('/service', serviceAPI);
     app.use('/contract', contractAPI);
-    app.use('/workAPI', workAPI);
+    app.use('/work', workAPI);
     app.use('/statistic', statisticAPI);
 }
 module.exports = route;

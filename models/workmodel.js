@@ -1,18 +1,23 @@
 const mongoose = require('mongoose');
 
-const workTypeSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
+const workTypeSchema = mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+        },
     },
-});
+    {
+        timestamps: true,
+    },
+);
 const workType = mongoose.model('worktype', workTypeSchema);
 
 const workSchema = mongoose.Schema(
     {
         workType_ID: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'worktype', // Liên kết với collection worktype
+            ref: 'worktype',
             required: true,
         },
         user_ID: {
@@ -34,7 +39,7 @@ const workSchema = mongoose.Schema(
         status: {
             type: String,
             required: true,
-            default: 'Chưa làm',
+            default: 'Chưa hoàn thành',
         },
     },
     {
