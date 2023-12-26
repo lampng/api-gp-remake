@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const workTypeSchema = mongoose.Schema(
     {
@@ -39,7 +40,7 @@ const workSchema = mongoose.Schema(
         status: {
             type: String,
             required: true,
-            default: 'Chưa hoàn thành',
+            default: 'Chưa hoàn thành',// * "Đã hoàn thành", "Không hoàn thành"
         },
     },
     {
