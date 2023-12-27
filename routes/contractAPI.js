@@ -48,7 +48,11 @@ router.post('/create', async (req, res) => {
             userId: req.body.userId,
             clientId: req.body.clientId,
             services: req.body.services,
-            weddingOutfit: req.body.weddingOutfit,
+            weddingOutfit: req.body.weddingOutfit.map((outfit) => ({
+                ...outfit,
+                rentalDate: moment(outfit.rentalDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+                returnDate: moment(outfit.returnDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+            })),
             note: req.body.note,
             workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').format('HH:mm DD/MM/YYYY'),
             deliveryDate: moment(req.body.deliveryDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
@@ -72,7 +76,7 @@ router.get('/list', async (req, res) => {
         const priority = {
             'Chưa thanh toán': 1,
             'Đã thanh toán': 2,
-            'Huỷ': 3,
+            Huỷ: 3,
         };
         const data = await contractModels
             .find({
@@ -127,7 +131,7 @@ router.get('/list/:id', async (req, res) => {
         const priority = {
             'Chưa thanh toán': 1,
             'Đã thanh toán': 2,
-            'Huỷ': 3,
+            Huỷ: 3,
         };
         const data = await contractModels
             .find(
