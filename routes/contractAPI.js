@@ -5,7 +5,6 @@ const clientModels = require('../models/clientModel');
 const contractModels = require('../models/contractModel');
 const ServiceModels = require('../models/ServiceModel');
 const WeddingOutfitModels = require('../models/WeddingOutfitModel');
-const discountModel = require('../models/discountModel');
 require('dotenv').config();
 //Tải lên ảnh
 const cloudinary = require('../middleware/cloudinary.js');
@@ -59,7 +58,8 @@ router.post('/create', async (req, res) => {
             location: req.body.location,
             prepayment: req.body.prepayment,
             additionalCosts: req.body.additionalCosts,
-            // priceTotal: totalPrice,
+            discount: req.body.discount,
+            priceTotal: req.body.priceTotal,
             active: active,
         });
         contract.save();

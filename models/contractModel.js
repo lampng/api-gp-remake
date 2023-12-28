@@ -38,10 +38,6 @@ const contractSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'client',
         },
-        discountCodeId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'discountCode',
-        },
         services: [contractServices],
         weddingOutfit: [contractWeddingOutfits],
         note: {
@@ -61,6 +57,10 @@ const contractSchema = mongoose.Schema(
             min: 0,
         },
         additionalCosts: [additionalCost],
+        discount: {
+            type: Number,
+            min: 0,
+        },
         priceTotal: {
             type: Number,
             min: 0,
