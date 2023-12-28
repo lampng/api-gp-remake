@@ -14,8 +14,12 @@ var router = express.Router();
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
+        'Thống kê doanh thu (GET)':
+            'https://api-gp-remake-production.up.railway.app/statistic/totalRevenue',
         'Thống kê dịch vụ sử dụng nhiều nhất (GET)':
-            'https://api-gp-remake-production.up.railway.app/statistic/popular-services',
+            'https://api-gp-remake-production.up.railway.app/statistic/service-usage',
+        'Thống kê dịch vụ sử dụng nhiều nhất (GET)':
+            'https://api-gp-remake-production.up.railway.app/statistic/wedding-outfit-usage',
     });
 });
 router.get('/totalRevenue', async (req, res) => {
@@ -74,7 +78,7 @@ router.get('/service-usage', async (req, res) => {
                     $in: result.map((service) => service._id),
                 },
             })
-            .lean(); 
+            .lean();
 
         const servicesWithCount = result.map((service) => {
             const serviceDetail = servicesDetails.find((detail) => detail._id.equals(service._id));
