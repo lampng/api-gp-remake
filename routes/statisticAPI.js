@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
             'https://api-gp-remake-production.up.railway.app/statistic/totalRevenue',
         'Thống kê dịch vụ sử dụng nhiều nhất (GET)':
             'https://api-gp-remake-production.up.railway.app/statistic/service-usage',
-        'Thống kê dịch vụ sử dụng nhiều nhất (GET)':
+        'Thống kê áo cưới sử dụng nhiều nhất (GET)':
             'https://api-gp-remake-production.up.railway.app/statistic/wedding-outfit-usage',
     });
 });
