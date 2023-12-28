@@ -6,7 +6,6 @@ const contractModels = require('../models/contractModel');
 const ServiceModels = require('../models/ServiceModel');
 const WeddingOutfitModels = require('../models/WeddingOutfitModel');
 const workmodels = require('../models/workmodel');
-const discountModel = require('../models/discountModel');
 require('dotenv').config();
 var express = require('express');
 var router = express.Router();
