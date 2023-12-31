@@ -24,54 +24,6 @@ router.get('/', (req, res) => {
     });
 });
 //  TODO: Tạo hợp đồng
-// router.post('/create', async (req, res) => {
-//     try {
-//         // Kiểm tra các tham số rỗng
-//         const checkField = (field) => !field;
-//         const requiredFields = ['userId', 'clientId', 'services', 'workDate', 'deliveryDate', 'location'];
-//         const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
-
-//         if (missingFields.length > 0) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: `Vui lòng điền đầy đủ thông tin các trường còn thiếu ${missingFields.join(', ')}`,
-//             });
-//         }
-//         const user = await userModels.findById(req.body.userId);
-//         if (user.role == 'Quản lý') {
-//             var active = true;
-//         } else {
-//             var active = false;
-//         }
-//         const contract = await contractModels.create({
-//             userId: req.body.userId,
-//             clientId: req.body.clientId,
-//             services: req.body.services,
-//             weddingOutfit: req.body.weddingOutfit.map((outfit) => ({
-//                 ...outfit,
-//                 // rentalDate: moment(outfit.rentalDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
-//                 // returnDate: moment(outfit.returnDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
-//                 rentalDate: moment(outfit.rentalDate, 'DD/MM/YYYY'),
-//                 returnDate: moment(outfit.returnDate, 'DD/MM/YYYY')
-//             })),
-//             note: req.body.note,
-//             workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').format('HH:mm DD/MM/YYYY'),
-//             deliveryDate: moment(req.body.deliveryDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
-//             location: req.body.location,
-//             prepayment: req.body.prepayment,
-//             additionalCosts: req.body.additionalCosts,
-//             discount: req.body.discount,
-//             priceTotal: req.body.priceTotal,
-//             active: active,
-//         });
-//         contract.save();
-
-//         contract.save();
-//         res.status(201).json({ success: true, message: 'Tạo hợp đồng thành công' });
-//     } catch (error) {
-//         res.status(500).json({ success: false, message: error.message });
-//     }
-// });
 router.post('/create', async (req, res) => {
     try {
         // Kiểm tra các tham số rỗng
