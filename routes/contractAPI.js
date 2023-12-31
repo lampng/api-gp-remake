@@ -52,7 +52,7 @@ router.post('/create', async (req, res) => {
             })),
             note: req.body.note,
             workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').toDate(),
-            deliveryDate: moment(req.body.deliveryDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+            deliveryDate: moment(req.body.deliveryDate, 'DD/MM/YYYY').toDate(),
             location: req.body.location,
             prepayment: req.body.prepayment,
             additionalCosts: req.body.additionalCosts,
