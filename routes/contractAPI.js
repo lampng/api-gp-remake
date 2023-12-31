@@ -51,7 +51,7 @@ router.post('/create', async (req, res) => {
                 returnDate: moment(outfit.returnDate, 'DD/MM/YYYY'),
             })),
             note: req.body.note,
-            workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').format('HH:mm DD/MM/YYYY'),
+            workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').toDate(),
             deliveryDate: moment(req.body.deliveryDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
             location: req.body.location,
             prepayment: req.body.prepayment,
