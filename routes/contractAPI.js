@@ -49,8 +49,10 @@ router.post('/create', async (req, res) => {
             services: req.body.services,
             weddingOutfit: req.body.weddingOutfit.map((outfit) => ({
                 ...outfit,
-                rentalDate: moment(outfit.rentalDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
-                returnDate: moment(outfit.returnDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+                // rentalDate: moment(outfit.rentalDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+                // returnDate: moment(outfit.returnDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+                rentalDate: moment(outfit.rentalDate, 'DD/MM/YYYY'),
+                returnDate: moment(outfit.returnDate, 'DD/MM/YYYY')
             })),
             note: req.body.note,
             workDate: moment(req.body.workDate, 'HH:mm DD/MM/YYYY').format('HH:mm DD/MM/YYYY'),
@@ -255,3 +257,12 @@ router.delete('/delete/:id', async (req, res) => {
     }
 });
 module.exports = router;
+
+const isValidDate = (dateString, format) => moment(dateString, format, true).isValid();
+const parseDate = (dateString, format) => {
+    if (isValidDate(dateString, format)) {
+        return moment(dateString, format).format(format);
+    }
+    // Xử lý lỗi hoặc trả về giá trị mặc định nếu ngày không hợp lệ.
+    return null;
+};
