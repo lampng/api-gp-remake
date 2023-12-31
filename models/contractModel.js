@@ -11,10 +11,10 @@ const contractWeddingOutfits = mongoose.Schema({
         ref: 'weddingOutfit',
     },
     rentalDate: {
-        type: String,
+        type: Date,
     },
     returnDate: {
-        type: String,
+        type: Date,
     },
     description: {
         type: String,
