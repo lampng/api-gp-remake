@@ -40,7 +40,14 @@ router.post('/create', async (req, res) => {
 
         const user = await userModels.findById(req.body.userId);
         const active = user.role === 'Quản lý';
-
+        const prepayment = req.body.prepayment;
+        const priceTotal = req.body.priceTotal;
+        let status = '';
+        if (prepayment >= priceTotal) {
+            status = 'Đã thanh toán';
+        } else {
+            status = 'Chưa thanh toán';
+        }
         const contract = await contractModels.create({
             userId: req.body.userId,
             clientId: req.body.clientId,
@@ -59,6 +66,7 @@ router.post('/create', async (req, res) => {
             discount: req.body.discount,
             priceTotal: req.body.priceTotal,
             active: active,
+            status: status,
         });
 
         // Gọi save() một lần
@@ -223,6 +231,17 @@ router.put('/update/:id', async (req, res) => {
             });
         }
 
+        // Kiểm tra nếu prepayment không tồn tại trong req.body, sử dụng giá trị từ model
+        const prepayment = req.body.prepayment !== undefined ? req.body.prepayment : updatedContract.prepayment;
+
+        // Kiểm tra nếu prepayment >= priceTotal thì cập nhật trạng thái thành "Đã thanh toán"
+        if (prepayment >= updatedContract.priceTotal) {
+            updatedContract.status = 'Đã thanh toán';
+        } else {
+            updatedContract.status = 'Chưa thanh toán';
+        }
+        
+        await updatedContract.save();
         console.log(`✅ Sửa hợp đồng thành công`.green.bold);
 
         res.status(200).json({
