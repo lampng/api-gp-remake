@@ -160,7 +160,7 @@ router.post('/add-work', async (req, res) => {
     try {
         const checkField = (field) => !field;
 
-        const requiredFields = ['workType_ID', 'user_ID', 'workDate', 'address', 'note'];
+        const requiredFields = ['workType_ID', 'user_ID', 'workDate', 'address'];
         const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
 
         if (missingFields.length > 0) {
