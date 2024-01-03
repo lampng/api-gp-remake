@@ -158,7 +158,7 @@ router.get('/list-user-add-work', async (req, res) => {
     }
 });
 // TODO: Thêm công việc cho nhân viên
-router.post('/add-work', upload.single('image'), async (req, res) => {
+router.post('/add-work', async (req, res) => {
     try {
         const checkField = (field) => !field;
 
@@ -193,13 +193,13 @@ router.post('/add-work', upload.single('image'), async (req, res) => {
             note: req.body.note,
             status: req.body.status,
         });
-        if (req.file != null) {
-            const result = await cloudinary.uploader.upload(req.file.path, {
-                folder: 'api-graduation-project/work-imageContract',
-            });
-            data.imageContract = result.secure_url;
-            data.cloudinary_id = result.public_id;
-        }
+        // if (req.file != null) {
+        //     const result = await cloudinary.uploader.upload(req.file.path, {
+        //         folder: 'api-graduation-project/work-imageContract',
+        //     });
+        //     data.imageContract = result.secure_url;
+        //     data.cloudinary_id = result.public_id;
+        // }
         data.save();
         console.log(`✅ Thêm công việc cho [${user.name}] thành công`.green.bold);
         res.status(200).json({
@@ -369,10 +369,10 @@ router.delete('/delete-work/:id', async (req, res) => {
         const user = await userModels.findById(work.user_ID);
         const workType = await workmodels.workType.findById(work.workType_ID);
 
-        if (work.cloudinary_id) {
-            await cloudinary.uploader.destroy(work.cloudinary_id);
-            console.log(`✅ Đã xoá ảnh trên Cloudinary của công việc: ${work.cloudinary_id}`);
-        }
+        // if (work.cloudinary_id) {
+        //     await cloudinary.uploader.destroy(work.cloudinary_id);
+        //     console.log(`✅ Đã xoá ảnh trên Cloudinary của công việc: ${work.cloudinary_id}`);
+        // }
 
         console.log(`✅ công việc [${workType.name}] của [${user.name}] đã được xóa thành công`.green.bold);
         
