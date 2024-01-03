@@ -141,7 +141,6 @@ router.get('/list-user-add-work', async (req, res) => {
 
         // Tìm kiếm công việc theo ngày
         const workList = await workmodels.work.find({ workDate: { $gte: startOfDay, $lte: endOfDay } });
-        console.log(`❕  ${workList}`.cyan.bold);
         const userList = await userModels.find();
 
         // Lọc danh sách người dùng không có công việc trong ngày này
@@ -171,7 +170,6 @@ router.post('/add-work', async (req, res) => {
             });
         }
         const workType = await workmodels.workType.findById(req.body.workType_ID);
-        console.log(`❕  ${workType}`.cyan.bold);
         const user = await userModels.findById(req.body.user_ID);
         if (!workType) {
             return res.status(404).json({
