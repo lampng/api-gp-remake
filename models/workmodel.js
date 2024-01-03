@@ -30,6 +30,14 @@ const workSchema = mongoose.Schema(
             type: Date,
             required: true,
         },
+        imageContract: {
+            type: String,
+            require: false,
+        },
+        cloudinary_id: {
+            type: String,
+            require: false,
+        },
         address: {
             type: String,
             required: true,
@@ -40,7 +48,7 @@ const workSchema = mongoose.Schema(
         status: {
             type: String,
             required: true,
-            default: 'Chưa hoàn thành',// * "Đã hoàn thành", "Không hoàn thành"
+            default: 'Chưa hoàn thành', // * "Đã hoàn thành", "Không hoàn thành"
         },
     },
     {

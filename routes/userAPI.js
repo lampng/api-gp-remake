@@ -1296,7 +1296,7 @@ router.delete('/delete/:id', async (req, res) => {
         // * Xoá tệp trên Cloudinary liên quan đến người dùng
         if (user.cloudinary_id) {
             await cloudinary.uploader.destroy(user.cloudinary_id);
-            console.log(`✅ Đã xoá tệp trên Cloudinary của người dùng: ${user.cloudinary_id}`);
+            console.log(`✅ Đã xoá ảnh trên Cloudinary của người dùng: ${user.cloudinary_id}`);
         }
         console.log(`✅ Xoá thành công`);
         res.status(200).json({

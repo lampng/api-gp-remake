@@ -27,7 +27,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
 
         const requiredFields = ['name', 'size', 'price', 'color'];
         const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
-
+        
         if (req.file == null || missingFields.length > 0) {
             return res.status(400).json({
                 success: false,
