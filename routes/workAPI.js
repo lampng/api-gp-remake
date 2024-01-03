@@ -234,7 +234,7 @@ router.get('/list-work', async (req, res) => {
         if (list.length === 0) {
             return res.status(404).json({
                 success: false,
-                message: 'Không tìm thấy công việc trong ngày này.',
+                message: `Không tìm thấy công việc trong ngày [${date}].`,
             });
         }
         res.status(200).json(list);
@@ -279,7 +279,7 @@ router.get('/user-work/:id', async (req, res) => {
         if (list.length === 0) {
             return res.status(404).json({
                 success: false,
-                message: 'Không tìm thấy công việc cho người dùng này.',
+                message: `Không tìm thấy công việc của người dùng trong ngày [${date}].`,
             });
         }
 
