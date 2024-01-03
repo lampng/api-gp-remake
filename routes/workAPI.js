@@ -224,7 +224,7 @@ router.get('/list-work', async (req, res) => {
         }
 
         const list = await workmodels.work
-            .find(conditions)
+            .find({ ...conditions })
             .populate({
                 path: 'workType_ID',
                 model: 'worktype',
@@ -237,6 +237,9 @@ router.get('/list-work', async (req, res) => {
                 message: `Không tìm thấy công việc trong ngày [${date}].`,
             });
         }
+        list.sort((a, b) => {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+        });
         res.status(200).json(list);
     } catch (error) {
         return res.status(500).json({
@@ -282,7 +285,9 @@ router.get('/user-work/:id', async (req, res) => {
                 message: `Không tìm thấy công việc của người dùng trong ngày [${date}].`,
             });
         }
-
+        list.sort((a, b) => {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+        });
         res.status(200).json(list);
     } catch (error) {
         return res.status(500).json({
