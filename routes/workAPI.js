@@ -219,10 +219,12 @@ router.get('/list-work', async (req, res) => {
             conditions = {
                 workDate: { $gte: startOfDay, $lte: endOfDay },
             };
+
+            conditions.workDate = { $gte: startOfDay, $lte: endOfDay };
         }
 
         const list = await workmodels.work
-            .find(conditions)
+            .find(...conditions)
             .populate({
                 path: 'workType_ID',
                 model: 'worktype',
@@ -251,17 +253,24 @@ router.get('/user-work/:id', async (req, res) => {
             conditions = {
                 workDate: { $gte: startOfDay, $lte: endOfDay },
             };
+
+            conditions.workDate = { $gte: startOfDay, $lte: endOfDay };
         }
+
         const list = await workmodels.work
-            .find({ user_ID: userId }, conditions)
+            .find({ user_ID: userId, ...conditions })  // Sử dụng spread operator để kết hợp điều kiện
             .populate({
                 path: 'workType_ID',
                 model: 'worktype',
             })
-            .populate({ path: 'user_ID', model: 'user', select: 'name role email phone avatar gender birthday' })
+            .populate({
+                path: 'user_ID',
+                model: 'user',
+                select: 'name role email phone avatar gender birthday',
+            })
             .exec();
 
-        if (!list || list.length === 0) {
+        if (list.length === 0) {
             return res.status(404).json({
                 success: false,
                 message: 'Không tìm thấy công việc cho người dùng này.',
