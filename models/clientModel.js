@@ -21,6 +21,10 @@ const clientSchema = mongoose.Schema(
             type: String,
             require: false,
         },
+        disable: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,

@@ -27,6 +27,7 @@ router.get('/list', async (req, res) => {
 
         // TODO: Sắp xếp giảm dần
         clients.sort((a, b) => b.createdAt - a.createdAt);
+        clients.sort((a, b) => (a.disable === b.disable ? 0 : a.disable ? 1 : -1));
 
         res.status(200).json(clients);
         console.log(`✅ Gọi danh sách khách hàng thành công`.green.bold);
@@ -110,25 +111,32 @@ router.post('/create', async (req, res) => {
 router.put('/update/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const updates = req.body;
-        const options = { new: true };
-        const updatedclient = await clientModels.findByIdAndUpdate(id, updates, options);
-        if (!updatedclient) {
+        const client = await clientModels.findById(id);
+
+        if (!client) {
             return res.status(404).json({
                 success: false,
                 message: `Không tìm thấy khách hàng`,
             });
         }
-        res.status(200).json({
-            success: true,
-            message: 'Cập nhập khách hàng thành công',
-        });
+
+        const data = {
+            ...req.body,
+        };
+        const update = await clientModels.findByIdAndUpdate(id, data, { new: true });
+        if (update) {
+            console.log(`✅ Sửa khách hàng thành công`.green.bold);
+            res.status(200).json({
+                success: true,
+                message: `Sửa khách hàng [${client.name}] thành công`,
+            });
+        }
     } catch (error) {
         res.status(500).json({
             success: false,
             message: error.message,
         });
-        console.log(`❗  Cập nhập khách hàng thất bại`.bgRed.white.strikethrough.bold);
+        console.log(`❗  Cập nhật khách hàng thất bại`.bgRed.white.strikethrough.bold);
     }
 });
 // TODO: ✅ Xoá khách hàng ([:id] = id của khách hàng)
@@ -145,7 +153,7 @@ router.delete('/delete/:id', async (req, res) => {
         console.log(`✅ Xoá thành công`);
         res.status(200).json({
             success: true,
-            message : `Xoá khách hàng [${client.name}] thành công`
+            message: `Xoá khách hàng [${client.name}] thành công`,
         });
     } catch (error) {
         console.error(`❗ ${error.message}`);

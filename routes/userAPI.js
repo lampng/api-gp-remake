@@ -1147,6 +1147,7 @@ router.get('/list', async (req, res) => {
             .then((doc) => {
                 // TODO: Sắp xếp giảm dần
                 doc.sort((a, b) => b.createdAt - a.createdAt);
+                doc.sort((a, b) => (a.disable === b.disable ? 0 : a.disable ? 1 : -1));
 
                 const formatDate = doc.map((user) => ({
                     ...user.toObject(),
@@ -1191,18 +1192,18 @@ router.put('/update/:id', upload.single('image'), async (req, res) => {
     try {
         const { id } = req.params;
         const user = await userModels.findById(id);
-        if (
-            req.body.name === '' ||
-            req.body.email === '' ||
-            req.body.role === '' ||
-            req.body.job === '' ||
-            req.body.gender == '' ||
-            req.body.birthday == ''
-        ) {
-            return res.status(400).json({
-                message: 'Vui lòng nhập đủ thông tin',
-            });
-        }
+
+        // const checkField = (field) => !field;
+        
+        // const requiredFields = ['name', 'email', 'role', 'job', 'gender', 'birthday'];
+        // const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
+        
+        // if (req.file == null || missingFields.length > 0) {
+        // return res.status(400).json({
+        // success: false,
+        // message: `Vui lòng điền đầy đủ thông tin các trường còn thiếu ${missingFields.join(', ')}`,
+        // });
+        // }
         if (req.file != null) {
             // * Kiểm tra và cập nhật thông tin người dùng kèm hình ảnh
             if (user.cloudinary_id != null) {
