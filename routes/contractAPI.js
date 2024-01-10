@@ -84,12 +84,12 @@ router.get('/list', async (req, res) => {
         const priority = {
             'Chưa thanh toán': 1,
             'Đã thanh toán': 2,
-            Huỷ: 3,
+            'Đã huỷ': 3,
         };
         const data = await contractModels
             .find({
                 status: {
-                    $in: ['Chưa thanh toán', 'Đã thanh toán'],
+                    $in: ['Chưa thanh toán', 'Đã thanh toán', 'Đã huỷ'],
                 },
             })
             .populate({
@@ -139,13 +139,13 @@ router.get('/list/:id', async (req, res) => {
         const priority = {
             'Chưa thanh toán': 1,
             'Đã thanh toán': 2,
-            Huỷ: 3,
+            'Đã huỷ': 3,
         };
         const data = await contractModels
             .find(
                 {
                     status: {
-                        $in: ['Chưa thanh toán', 'Đã thanh toán'],
+                        $in: ['Chưa thanh toán', 'Đã thanh toán', 'Đã huỷ'],
                     },
                 },
                 { userId: req.params.id },
@@ -238,9 +238,9 @@ router.put('/update/:id', async (req, res) => {
         if (prepayment >= updatedContract.priceTotal) {
             updatedContract.status = 'Đã thanh toán';
         } else {
-            updatedContract.status = 'Chưa thanh toán';
+            updatedContract.status = updates.status;
         }
-        
+
         await updatedContract.save();
         console.log(`✅ Sửa hợp đồng thành công`.green.bold);
 
