@@ -84,12 +84,12 @@ router.get('/list', async (req, res) => {
         const priority = {
             'Chưa thanh toán': 1,
             'Đã thanh toán': 2,
-            'Đã huỷ': 3,
+            'Đã hủy': 3,
         };
         const data = await contractModels
             .find({
                 status: {
-                    $in: ['Chưa thanh toán', 'Đã thanh toán', 'Đã huỷ'],
+                    $in: ['Chưa thanh toán', 'Đã thanh toán', 'Đã hủy'],
                 },
             })
             .populate({
@@ -139,13 +139,13 @@ router.get('/list/:id', async (req, res) => {
         const priority = {
             'Chưa thanh toán': 1,
             'Đã thanh toán': 2,
-            'Đã huỷ': 3,
+            'Đã hủy': 3,
         };
         const data = await contractModels
             .find(
                 {
                     status: {
-                        $in: ['Chưa thanh toán', 'Đã thanh toán', 'Đã huỷ'],
+                        $in: ['Chưa thanh toán', 'Đã thanh toán', 'Đã hủy'],
                     },
                 },
                 { userId: req.params.id },
