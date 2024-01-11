@@ -1106,7 +1106,16 @@ router.post('/login', async (req, res) => {
         const isMatch = await bcrypt.compare(password, check.password);
 
         if (isMatch) {
-            const { _id, role, name, address, phone, birthday, avatar, cloudinary_id, active } = check;
+            const { _id, role, name, address, phone, birthday, avatar, cloudinary_id, active, disable } = check;
+
+            if (disable) {
+                console.log(`✅  Đăng nhập thất bại, tài khoản đã bị vô hiệu hóa`.green.bold);
+                return res.status(404).json({
+                  success: false,
+                  message: 'Tài khoản đã bị vô hiệu hóa',
+              });
+            }
+
             console.log(`✅  Đăng nhập thành công`.green.bold);
 
             req.session.email = check.email;
@@ -1194,10 +1203,10 @@ router.put('/update/:id', upload.single('image'), async (req, res) => {
         const user = await userModels.findById(id);
 
         // const checkField = (field) => !field;
-        
+
         // const requiredFields = ['name', 'email', 'role', 'job', 'gender', 'birthday'];
         // const missingFields = requiredFields.filter((field) => checkField(req.body[field]));
-        
+
         // if (req.file == null || missingFields.length > 0) {
         // return res.status(400).json({
         // success: false,
@@ -2622,7 +2631,6 @@ router.delete('/salary/:userId', async (req, res) => {
     }
 });
 module.exports = router;
-
 
 // ! Hàm lưu mã xác nhận vào cơ sở dữ liệu
 async function storeConfirmationCode(userId, code, expirationTimeInSeconds) {
