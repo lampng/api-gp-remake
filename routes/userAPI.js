@@ -1108,7 +1108,7 @@ router.post('/login', async (req, res) => {
         if (isMatch) {
             const { _id, role, name, address, phone, birthday, avatar, cloudinary_id, active, disable } = check;
 
-            if (disable) {
+            if (check.disable) {
                 console.log(`✅  Đăng nhập thất bại, tài khoản đã bị vô hiệu hóa`.green.bold);
                 return res.status(404).json({
                   success: false,
