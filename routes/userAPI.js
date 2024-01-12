@@ -1145,14 +1145,14 @@ router.post('/login', async (req, res) => {
             });
         } else {
             console.log(`Sai mật khẩu`.bgRed.white.strikethrough.bold);
-            return res.status(404).json({
+            return res.status(200).json({
                 success: false,
                 message: 'Sai mật khẩu',
             });
         }
     } catch (err) {
         console.log('Lỗi server'.bgRed.white.strikethrough.bold);
-        return res.status(404).json({
+        return res.status(200).json({
             success: false,
             message: 'Lỗi server',
         });
