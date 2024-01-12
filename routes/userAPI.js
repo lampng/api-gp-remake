@@ -1113,8 +1113,9 @@ router.post('/login', async (req, res) => {
 
             if (check.disable) {
                 console.log(`✅  Đăng nhập thất bại, tài khoản đã bị vô hiệu hóa`.green.bold);
-                return res.status(404).json({
+                return res.status(200).json({
                     success: false,
+                    disable: true,
                     message: 'Tài khoản đã bị vô hiệu hóa',
                 });
             }
