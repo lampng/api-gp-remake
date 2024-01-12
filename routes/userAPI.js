@@ -1116,7 +1116,7 @@ router.post('/login', async (req, res) => {
                 return res.status(200).json({
                     success: false,
                     disable: true,
-                    message: 'Tài khoản đã bị vô hiệu hóa',
+                    message: 'TÀI KHOẢN ĐÃ BỊ VÔ HIỆU HÓA',
                 });
             }
 
@@ -1147,14 +1147,14 @@ router.post('/login', async (req, res) => {
             console.log(`Sai mật khẩu`.bgRed.white.strikethrough.bold);
             return res.status(200).json({
                 success: false,
-                message: 'Sai mật khẩu',
+                message: 'SAI MẬT KHẨU',
             });
         }
     } catch (err) {
         console.log('Lỗi server'.bgRed.white.strikethrough.bold);
         return res.status(200).json({
             success: false,
-            message: 'Lỗi server',
+            message: 'LỖI SERVER',
         });
     }
 });
