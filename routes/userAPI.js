@@ -1092,6 +1092,7 @@ router.post('/login', async (req, res) => {
     try {
         if (req.body.email === '' || req.body.password === '') {
             return res.status(400).json({
+                success: false,
                 message: 'Vui lòng nhập đủ thông tin',
             });
         }
@@ -1099,9 +1100,11 @@ router.post('/login', async (req, res) => {
         const check = await userModels.findOne({ email });
 
         if (!check || !check.password) {
-            res.send('Sai email hoặc mật khẩu');
             console.log(`Sai email hoặc mật khẩu`.bgRed.white.strikethrough.bold);
-            return;
+            return res.status(404).json({
+                success: false,
+                message: 'Sai email hoặc mật khẩu',
+            });
         }
         const isMatch = await bcrypt.compare(password, check.password);
 
@@ -1111,9 +1114,9 @@ router.post('/login', async (req, res) => {
             if (check.disable) {
                 console.log(`✅  Đăng nhập thất bại, tài khoản đã bị vô hiệu hóa`.green.bold);
                 return res.status(404).json({
-                  success: false,
-                  message: 'Tài khoản đã bị vô hiệu hóa',
-              });
+                    success: false,
+                    message: 'Tài khoản đã bị vô hiệu hóa',
+                });
             }
 
             console.log(`✅  Đăng nhập thành công`.green.bold);
@@ -1140,12 +1143,18 @@ router.post('/login', async (req, res) => {
                 active,
             });
         } else {
-            res.send('Sai mật khẩu');
             console.log(`Sai mật khẩu`.bgRed.white.strikethrough.bold);
+            return res.status(404).json({
+                success: false,
+                message: 'Sai mật khẩu',
+            });
         }
     } catch (err) {
-        res.status(500).send('Lỗi server');
         console.log('Lỗi server'.bgRed.white.strikethrough.bold);
+        return res.status(404).json({
+            success: false,
+            message: 'Lỗi server',
+        });
     }
 });
 // TODO: Gọi danh sách người dùng
