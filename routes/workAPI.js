@@ -155,7 +155,7 @@ router.get('/list-user-add-work', async (req, res) => {
         // });
 
         // Hiển thị kết quả
-        res.status(200).json(userList);
+        res.status(200).json(usersWithoutWork);
     } catch (error) {
         console.log(`❗  ${error.message}`.bgRed.white.strikethrough.bold);
         res.status(500).json({
