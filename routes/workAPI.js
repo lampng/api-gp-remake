@@ -245,7 +245,7 @@ router.get('/list-work', async (req, res) => {
             });
         }
         list.sort((a, b) => {
-            return new Date(a.createdAt) - new Date(b.createdAt);
+            return new Date(b.workDate) - new Date(a.workDate);
         });
         res.status(200).json(list);
     } catch (error) {
@@ -293,7 +293,7 @@ router.get('/user-work/:id', async (req, res) => {
             });
         }
         list.sort((a, b) => {
-            return new Date(a.createdAt) - new Date(b.createdAt);
+            return new Date(b.workDate) - new Date(a.workDate);
         });
         res.status(200).json(list);
     } catch (error) {
