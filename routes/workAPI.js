@@ -143,7 +143,7 @@ router.get('/list-user-add-work', async (req, res) => {
 
         // Tìm kiếm công việc theo ngày
         const workList = await workmodels.work.find({ workDate: { $gte: startOfDay, $lte: endOfDay } });
-        const userList = await userModels.find({ disable: false });
+        const userList = await userModels.find();
 
         // Lọc danh sách người dùng không có công việc trong ngày này
         const usersWithoutWork = userList.filter((user) => !workList.some((work) => work.user_ID.equals(user._id)));
