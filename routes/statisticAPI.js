@@ -15,11 +15,11 @@ router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
         'Thống kê doanh thu (GET)':
-            'https://api-gp-remake-production.up.railway.app/statistic/totalRevenue',
+            'http://localhost:1102/statistic/totalRevenue',
         'Thống kê dịch vụ sử dụng nhiều nhất (GET)':
-            'https://api-gp-remake-production.up.railway.app/statistic/service-usage',
+            'http://localhost:1102/statistic/service-usage',
         'Thống kê áo cưới sử dụng nhiều nhất (GET)':
-            'https://api-gp-remake-production.up.railway.app/statistic/wedding-outfit-usage',
+            'http://localhost:1102/statistic/wedding-outfit-usage',
     });
 });
 router.get('/totalRevenue', async (req, res) => {

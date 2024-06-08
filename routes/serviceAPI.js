@@ -13,11 +13,11 @@ var router = express.Router();
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo dịch vụ(POST):': `https://api-gp-remake-production.up.railway.app/service/create/`,
-        'Gọi danh sách dịch vụ(GET):': `https://api-gp-remake-production.up.railway.app/service/list/`,
-        'Gọi chi tiết dịch vụ(GET):': `https://api-gp-remake-production.up.railway.app/service/detail/:id`,
-        'Cập nhập dịch vụ(PUT):': `https://api-gp-remake-production.up.railway.app/service/update/:id`,
-        'Xoá dịch vụ(DELETE):': `https://api-gp-remake-production.up.railway.app/service/delete/:id`,
+        'Tạo dịch vụ(POST):': `http://localhost:1102/service/create/`,
+        'Gọi danh sách dịch vụ(GET):': `http://localhost:1102/service/list/`,
+        'Gọi chi tiết dịch vụ(GET):': `http://localhost:1102/service/detail/:id`,
+        'Cập nhập dịch vụ(PUT):': `http://localhost:1102/service/update/:id`,
+        'Xoá dịch vụ(DELETE):': `http://localhost:1102/service/delete/:id`,
     });
 });
 // TODO: ✅ Tạo dịch vụ

@@ -15,12 +15,12 @@ const moment = require('moment');
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo hợp đồng(POST):': `https://api-gp-remake-production.up.railway.app/contract/create/`,
-        'Gọi danh sách(GET):': `https://api-gp-remake-production.up.railway.app/contract/list/`,
-        'Gọi danh sách theo userId(GET):': `https://api-gp-remake-production.up.railway.app/contract/list/:id`,
-        'Chi tiết hợp đồng(GET):': `https://api-gp-remake-production.up.railway.app/contract/detail/:id`,
-        'Sửa hợp đồng(PUT):': `https://api-gp-remake-production.up.railway.app/contract/update/:id`,
-        'Xoá hợp đồng(DELETE):': `https://api-gp-remake-production.up.railway.app/contract/delete/:id`,
+        'Tạo hợp đồng(POST):': `http://localhost:1102/contract/create/`,
+        'Gọi danh sách(GET):': `http://localhost:1102/contract/list/`,
+        'Gọi danh sách theo userId(GET):': `http://localhost:1102/contract/list/:id`,
+        'Chi tiết hợp đồng(GET):': `http://localhost:1102/contract/detail/:id`,
+        'Sửa hợp đồng(PUT):': `http://localhost:1102/contract/update/:id`,
+        'Xoá hợp đồng(DELETE):': `http://localhost:1102/contract/delete/:id`,
     });
 });
 //  TODO: Tạo hợp đồng

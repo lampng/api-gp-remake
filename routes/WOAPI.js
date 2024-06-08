@@ -13,11 +13,11 @@ var router = express.Router();
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Thêm (POST)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/create/`,
-        'Danh sách (GET)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/list/`,
-        'Chi tiết (GET)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/detail/:id`,
-        'Sửa (PUT)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/update/:id`,
-        'Xoá (DELETE)': `https://api-gp-remake-production.up.railway.app/WeddingOutfit/delete/:id`,
+        'Thêm (POST)': `http://localhost:1102/WeddingOutfit/create/`,
+        'Danh sách (GET)': `http://localhost:1102/WeddingOutfit/list/`,
+        'Chi tiết (GET)': `http://localhost:1102/WeddingOutfit/detail/:id`,
+        'Sửa (PUT)': `http://localhost:1102/WeddingOutfit/update/:id`,
+        'Xoá (DELETE)': `http://localhost:1102/WeddingOutfit/delete/:id`,
     });
 });
 // TODO: Thêm áo cưới

@@ -12,11 +12,11 @@ const moment = require('moment');
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo khách hàng mới(POST):': `https://api-gp-remake-production.up.railway.app/client/create`,
-        'Gọi danh sách khách hàng(GET):': `https://api-gp-remake-production.up.railway.app/client/list`,
-        'Gọi chi tiết khách hàng(GET):': `https://api-gp-remake-production.up.railway.app/client/detail/:id`,
-        'Cập nhập thông tin khách hàng(PUT):': `https://api-gp-remake-production.up.railway.app/client/update/:id`,
-        'Xoá khách hàng(DELETE):': `https://api-gp-remake-production.up.railway.app/client/delete/:id`,
+        'Tạo khách hàng mới(POST):': `http://localhost:1102/client/create`,
+        'Gọi danh sách khách hàng(GET):': `http://localhost:1102/client/list`,
+        'Gọi chi tiết khách hàng(GET):': `http://localhost:1102/client/detail/:id`,
+        'Cập nhập thông tin khách hàng(PUT):': `http://localhost:1102/client/update/:id`,
+        'Xoá khách hàng(DELETE):': `http://localhost:1102/client/delete/:id`,
     });
 });
 

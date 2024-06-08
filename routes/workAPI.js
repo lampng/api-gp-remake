@@ -18,16 +18,16 @@ const path = require('path');
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo loại công việc (POST):': `https://api-gp-remake-production.up.railway.app/work/create`,
-        'Danh sách loại công việc (GET):': `https://api-gp-remake-production.up.railway.app/work/list`,
-        'Sửa loại công việc (PUT):': `https://api-gp-remake-production.up.railway.app/work/update/:id`,
-        'Xoá loại công việc (DELETE):': `https://api-gp-remake-production.up.railway.app/work/delete/:id`,
-        'Thêm công việc cho nhân viên (POST):': `https://api-gp-remake-production.up.railway.app/work/add-work`,
-        'Danh sách công việc của nhân viên (GET):': `https://api-gp-remake-production.up.railway.app/work/list-work`,
-        'Danh sách nhân viên có thể thêm công việc trong ngày (GET):': `https://api-gp-remake-production.up.railway.app/work/list-user-add-work`,
-        'Chi tiết công việc (POST):': `https://api-gp-remake-production.up.railway.app/work/detail-work/:id`,
-        'Sửa công việc (PUT):': `https://api-gp-remake-production.up.railway.app/work/update-work/:id`,
-        'Xoá công việc (DELETE):': `https://api-gp-remake-production.up.railway.app/work/delete-work/:id`,
+        'Tạo loại công việc (POST):': `http://localhost:1102/work/create`,
+        'Danh sách loại công việc (GET):': `http://localhost:1102/work/list`,
+        'Sửa loại công việc (PUT):': `http://localhost:1102/work/update/:id`,
+        'Xoá loại công việc (DELETE):': `http://localhost:1102/work/delete/:id`,
+        'Thêm công việc cho nhân viên (POST):': `http://localhost:1102/work/add-work`,
+        'Danh sách công việc của nhân viên (GET):': `http://localhost:1102/work/list-work`,
+        'Danh sách nhân viên có thể thêm công việc trong ngày (GET):': `http://localhost:1102/work/list-user-add-work`,
+        'Chi tiết công việc (POST):': `http://localhost:1102/work/detail-work/:id`,
+        'Sửa công việc (PUT):': `http://localhost:1102/work/update-work/:id`,
+        'Xoá công việc (DELETE):': `http://localhost:1102/work/delete-work/:id`,
     });
 });
 // TODO: Thêm loại công việc

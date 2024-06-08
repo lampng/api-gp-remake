@@ -40,13 +40,13 @@ route(app)
 app.get("/", (req, res) => {
     res.json({
         status: "API ON",
-        "User(Người dùng):": `https://api-gp-remake-production.up.railway.app/user/`,
-        "Client(Khách hàng):": `https://api-gp-remake-production.up.railway.app/client/`,
-        "Service(Dịch vụ):": `https://api-gp-remake-production.up.railway.app/service/`,
-        "Wedding Outfit(Áo cưới):": `https://api-gp-remake-production.up.railway.app/WeddingOutfit/`,
-        "contract(Hợp đồng):": `https://api-gp-remake-production.up.railway.app/contract/`,
-        "work(Công việc):": `https://api-gp-remake-production.up.railway.app/work/`,
-        "Statistic(Thống kê):": `https://api-gp-remake-production.up.railway.app/statistic/`,
+        "User(Người dùng):": `http://localhost:1102/user/`,
+        "Client(Khách hàng):": `http://localhost:1102/client/`,
+        "Service(Dịch vụ):": `http://localhost:1102/service/`,
+        "Wedding Outfit(Áo cưới):": `http://localhost:1102/WeddingOutfit/`,
+        "contract(Hợp đồng):": `http://localhost:1102/contract/`,
+        "work(Công việc):": `http://localhost:1102/work/`,
+        "Statistic(Thống kê):": `http://localhost:1102/statistic/`,
     })
 })
 const APIroute = require('./routes/userAPI');
