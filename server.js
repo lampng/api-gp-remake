@@ -38,6 +38,7 @@ app.use(
 const route = require('./routes/index');
 route(app)
 //  cors
+
 app.get("/", (req, res) => {
     res.json({
         status: "API ON",
