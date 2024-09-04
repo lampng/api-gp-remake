@@ -18,16 +18,16 @@ const path = require('path');
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo loại công việc (POST):': `http://localhost:1102/work/create`,
-        'Danh sách loại công việc (GET):': `http://localhost:1102/work/list`,
-        'Sửa loại công việc (PUT):': `http://localhost:1102/work/update/:id`,
-        'Xoá loại công việc (DELETE):': `http://localhost:1102/work/delete/:id`,
-        'Thêm công việc cho nhân viên (POST):': `http://localhost:1102/work/add-work`,
-        'Danh sách công việc của nhân viên (GET):': `http://localhost:1102/work/list-work`,
-        'Danh sách nhân viên có thể thêm công việc trong ngày (GET):': `http://localhost:1102/work/list-user-add-work`,
-        'Chi tiết công việc (POST):': `http://localhost:1102/work/detail-work/:id`,
-        'Sửa công việc (PUT):': `http://localhost:1102/work/update-work/:id`,
-        'Xoá công việc (DELETE):': `http://localhost:1102/work/delete-work/:id`,
+        'Tạo loại công việc (POST):': `http://api-gp-remake.onrender.com/work/create`,
+        'Danh sách loại công việc (GET):': `http://api-gp-remake.onrender.com/work/list`,
+        'Sửa loại công việc (PUT):': `http://api-gp-remake.onrender.com/work/update/:id`,
+        'Xoá loại công việc (DELETE):': `http://api-gp-remake.onrender.com/work/delete/:id`,
+        'Thêm công việc cho nhân viên (POST):': `http://api-gp-remake.onrender.com/work/add-work`,
+        'Danh sách công việc của nhân viên (GET):': `http://api-gp-remake.onrender.com/work/list-work`,
+        'Danh sách nhân viên có thể thêm công việc trong ngày (GET):': `http://api-gp-remake.onrender.com/work/list-user-add-work`,
+        'Chi tiết công việc (POST):': `http://api-gp-remake.onrender.com/work/detail-work/:id`,
+        'Sửa công việc (PUT):': `http://api-gp-remake.onrender.com/work/update-work/:id`,
+        'Xoá công việc (DELETE):': `http://api-gp-remake.onrender.com/work/delete-work/:id`,
     });
 });
 // TODO: Thêm loại công việc

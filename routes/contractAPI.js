@@ -15,12 +15,12 @@ const moment = require('moment');
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo hợp đồng(POST):': `http://localhost:1102/contract/create/`,
-        'Gọi danh sách(GET):': `http://localhost:1102/contract/list/`,
-        'Gọi danh sách theo userId(GET):': `http://localhost:1102/contract/list/:id`,
-        'Chi tiết hợp đồng(GET):': `http://localhost:1102/contract/detail/:id`,
-        'Sửa hợp đồng(PUT):': `http://localhost:1102/contract/update/:id`,
-        'Xoá hợp đồng(DELETE):': `http://localhost:1102/contract/delete/:id`,
+        'Tạo hợp đồng(POST):': `http://api-gp-remake.onrender.com/contract/create/`,
+        'Gọi danh sách(GET):': `http://api-gp-remake.onrender.com/contract/list/`,
+        'Gọi danh sách theo userId(GET):': `http://api-gp-remake.onrender.com/contract/list/:id`,
+        'Chi tiết hợp đồng(GET):': `http://api-gp-remake.onrender.com/contract/detail/:id`,
+        'Sửa hợp đồng(PUT):': `http://api-gp-remake.onrender.com/contract/update/:id`,
+        'Xoá hợp đồng(DELETE):': `http://api-gp-remake.onrender.com/contract/delete/:id`,
     });
 });
 //  TODO: Tạo hợp đồng

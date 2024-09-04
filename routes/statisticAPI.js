@@ -15,11 +15,11 @@ router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
         'Thống kê doanh thu (GET)':
-            'http://localhost:1102/statistic/totalRevenue',
+            'http://api-gp-remake.onrender.com/statistic/totalRevenue',
         'Thống kê dịch vụ sử dụng nhiều nhất (GET)':
-            'http://localhost:1102/statistic/service-usage',
+            'http://api-gp-remake.onrender.com/statistic/service-usage',
         'Thống kê áo cưới sử dụng nhiều nhất (GET)':
-            'http://localhost:1102/statistic/wedding-outfit-usage',
+            'http://api-gp-remake.onrender.com/statistic/wedding-outfit-usage',
     });
 });
 router.get('/totalRevenue', async (req, res) => {

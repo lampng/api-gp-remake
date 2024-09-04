@@ -13,11 +13,11 @@ var router = express.Router();
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo dịch vụ(POST):': `http://localhost:1102/service/create/`,
-        'Gọi danh sách dịch vụ(GET):': `http://localhost:1102/service/list/`,
-        'Gọi chi tiết dịch vụ(GET):': `http://localhost:1102/service/detail/:id`,
-        'Cập nhập dịch vụ(PUT):': `http://localhost:1102/service/update/:id`,
-        'Xoá dịch vụ(DELETE):': `http://localhost:1102/service/delete/:id`,
+        'Tạo dịch vụ(POST):': `http://api-gp-remake.onrender.com/service/create/`,
+        'Gọi danh sách dịch vụ(GET):': `http://api-gp-remake.onrender.com/service/list/`,
+        'Gọi chi tiết dịch vụ(GET):': `http://api-gp-remake.onrender.com/service/detail/:id`,
+        'Cập nhập dịch vụ(PUT):': `http://api-gp-remake.onrender.com/service/update/:id`,
+        'Xoá dịch vụ(DELETE):': `http://api-gp-remake.onrender.com/service/delete/:id`,
     });
 });
 // TODO: ✅ Tạo dịch vụ

@@ -41,13 +41,13 @@ route(app)
 app.get("/", (req, res) => {
     res.json({
         status: "API ON",
-        "User(Người dùng):": `http://localhost:1102/user/`,
-        "Client(Khách hàng):": `http://localhost:1102/client/`,
-        "Service(Dịch vụ):": `http://localhost:1102/service/`,
-        "Wedding Outfit(Áo cưới):": `http://localhost:1102/WeddingOutfit/`,
-        "contract(Hợp đồng):": `http://localhost:1102/contract/`,
-        "work(Công việc):": `http://localhost:1102/work/`,
-        "Statistic(Thống kê):": `http://localhost:1102/statistic/`,
+        "User(Người dùng):": `http://api-gp-remake.onrender.com/user/`,
+        "Client(Khách hàng):": `http://api-gp-remake.onrender.com/client/`,
+        "Service(Dịch vụ):": `http://api-gp-remake.onrender.com/service/`,
+        "Wedding Outfit(Áo cưới):": `http://api-gp-remake.onrender.com/WeddingOutfit/`,
+        "contract(Hợp đồng):": `http://api-gp-remake.onrender.com/contract/`,
+        "work(Công việc):": `http://api-gp-remake.onrender.com/work/`,
+        "Statistic(Thống kê):": `http://api-gp-remake.onrender.com/statistic/`,
     })
 })
 const APIroute = require('./routes/userAPI');

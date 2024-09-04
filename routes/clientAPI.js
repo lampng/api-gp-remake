@@ -12,11 +12,11 @@ const moment = require('moment');
 router.get('/', (req, res) => {
     res.json({
         status: 'Đang phát triển',
-        'Tạo khách hàng mới(POST):': `http://localhost:1102/client/create`,
-        'Gọi danh sách khách hàng(GET):': `http://localhost:1102/client/list`,
-        'Gọi chi tiết khách hàng(GET):': `http://localhost:1102/client/detail/:id`,
-        'Cập nhập thông tin khách hàng(PUT):': `http://localhost:1102/client/update/:id`,
-        'Xoá khách hàng(DELETE):': `http://localhost:1102/client/delete/:id`,
+        'Tạo khách hàng mới(POST):': `http://api-gp-remake.onrender.com/client/create`,
+        'Gọi danh sách khách hàng(GET):': `http://api-gp-remake.onrender.com/client/list`,
+        'Gọi chi tiết khách hàng(GET):': `http://api-gp-remake.onrender.com/client/detail/:id`,
+        'Cập nhập thông tin khách hàng(PUT):': `http://api-gp-remake.onrender.com/client/update/:id`,
+        'Xoá khách hàng(DELETE):': `http://api-gp-remake.onrender.com/client/delete/:id`,
     });
 });
 
