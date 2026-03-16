@@ -4,8 +4,8 @@ const log = console.log;
 async function connect() {
     try {
         mongoose.Promise = global.Promise
-        // await mongoose.connect('mongodb+srv://lampng:vhoOvRTkwH8oWxst@nodejs-server.omzznkp.mongodb.net/api-graduation-project?retryWrites=true&w=majority', {
-        await mongoose.connect('mongodb+srv://lampng1102_db_user:JkEcmrk2G6MQQyF6@nodejs-server.omzznkp.mongodb.net/api-graduation-project?retryWrites=true&w=majority&appName=nodejs-server', {
+    //  mongodb+srv://lampng1102_db_user:JkEcmrk2G6MQQyF6@nodejs-server.v0abjeo.mongodb.net/api-graduation-project?appName=nodejs-server
+        await mongoose.connect('mongodb+srv://lampng1102_db_user:JkEcmrk2G6MQQyF6@nodejs-server.v0abjeo.mongodb.net/api-graduation-project?appName=nodejs-server', {
             useUnifiedTopology: true,
             useNewUrlParser: true
         })
