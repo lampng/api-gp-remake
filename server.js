@@ -20,7 +20,7 @@ db.connect();
 // my sesions
 const mongoDB_session = require("connect-mongodb-session")(session);
 const secretAPI = new mongoDB_session({
-    uri: "mongodb+srv://lampng:jKO3g5tCingtIpnT@nodejs-server.omzznkp.mongodb.net/api-graduation-project?appName=nodejs-server",
+    uri: process.env.DB_URL,
     collection: "mySessions",
 });
 
