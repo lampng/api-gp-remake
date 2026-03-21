@@ -5,7 +5,7 @@ async function connect() {
     try {
         mongoose.Promise = global.Promise
     //  mongodb+srv://lampng1102_db_user:JkEcmrk2G6MQQyF6@nodejs-server.v0abjeo.mongodb.net/api-graduation-project?appName=nodejs-server
-        await mongoose.connect('mongodb+srv://lampng1102_db_user:JkEcmrk2G6MQQyF6@nodejs-server.v0abjeo.mongodb.net/api-graduation-project?appName=nodejs-server', {
+        await mongoose.connect('mongodb+srv://lampng:jKO3g5tCingtIpnT@nodejs-server.omzznkp.mongodb.net/api-graduation-project?appName=nodejs-server', {
             useUnifiedTopology: true,
             useNewUrlParser: true
         })

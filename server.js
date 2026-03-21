@@ -20,7 +20,7 @@ db.connect();
 // my sesions
 const mongoDB_session = require("connect-mongodb-session")(session);
 const secretAPI = new mongoDB_session({
-    uri: "mongodb+srv://lampng1102_db_user:JkEcmrk2G6MQQyF6@nodejs-server.v0abjeo.mongodb.net/api-graduation-project?appName=nodejs-server",
+    uri: "mongodb+srv://lampng:jKO3g5tCingtIpnT@nodejs-server.omzznkp.mongodb.net/api-graduation-project?appName=nodejs-server",
     collection: "mySessions",
 });
 app.use(
@@ -61,7 +61,7 @@ app.get("*", (req, res) => {
 });
 //================================================================================
 // port
-var port = process.env.PORT || 1102;
+var port = process.env.PORT || 3000;
 // running server
 const log = console.log;
 log(`============================`.rainbow.bold)
