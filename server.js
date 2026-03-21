@@ -23,6 +23,7 @@ const secretAPI = new mongoDB_session({
     uri: "mongodb+srv://lampng:jKO3g5tCingtIpnT@nodejs-server.omzznkp.mongodb.net/api-graduation-project?appName=nodejs-server",
     collection: "mySessions",
 });
+
 app.use(
     session({
         secret: "my secret",
